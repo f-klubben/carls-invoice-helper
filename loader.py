@@ -15,7 +15,7 @@ def loadInvoices(path: str):
     with open(os.path.abspath(path), "r") as f:
         reader = csv.DictReader(f, delimiter=";")
         for row in reader:
-            id = int(row["ï»¿Bilagsnummer"])
+            id = int(row.get("ï»¿Bilagsnummer",row["\ufeffBilagsnummer"]))
             amount = float(row["Total i DKK"].replace(".", "").replace(",", "."))
             bilagMap[id] = amount
     return bilagMap
