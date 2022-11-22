@@ -8,7 +8,7 @@ This is a tool to help log carlsberg invoice when doing accounting for F-Klubben
 
 Now you're ready to run the script, do the following:
 ```console
-./invoiceHelper ./samples/statements.txt ./samples/invoices.csv
+python ./invoiceHelper.py ./samples/statements.txt ./samples/invoices.csv
 ```
 
 The program will then return each statement and the invoices that match. 
