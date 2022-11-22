@@ -12,10 +12,10 @@ def loadStatements(path: str):
 
 def loadInvoices(path: str):
     bilagMap: dict[int, float]  = dict()
-    with open(os.path.abspath(path), "r") as f:
+    with open(os.path.abspath(path), "r", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f, delimiter=";")
         for row in reader:
-            id = int(row.get("ï»¿Bilagsnummer",row["\ufeffBilagsnummer"]))
+            id = int(row["Bilagsnummer"])
             amount = float(row["Total i DKK"].replace(".", "").replace(",", "."))
             bilagMap[id] = amount
     return bilagMap
