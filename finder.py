@@ -3,7 +3,7 @@ from itertools import combinations
 # Loopi de loop
 # subset sum problem
 
-def findMatchesForAllStatements(statements: list[float], invoices: dict[int, float]):
+def findMatchesForAllStatements(statements: list[int], invoices: dict[int, int]):
     matches =  dict()
 
     for statement in statements:
@@ -13,21 +13,21 @@ def findMatchesForAllStatements(statements: list[float], invoices: dict[int, flo
     
     return matches, getDuplicates(matches)
 
-def findMatchesForStatement(statement: float, invoices: dict[int, float]):
+def findMatchesForStatement(statement: int, invoices: dict[int, int]):
     """
     Find all invoices that sum up to the statement
     2^n-1 combinations
     """
     ids = list(invoices.keys())
-    matches: list[dict[int, float]]= []
+    matches: list[dict[int, int]]= []
     for length in range(len(ids) + 1):
         for subset in combinations(ids, length):
-            subsetSum = round(sum([invoices[id] for id in subset]), 2)
+            subsetSum = sum([invoices[id] for id in subset])
             if subsetSum == statement:
                 matches.append({id: invoices[id] for id in subset})
     return matches
 
-def getDuplicates(matches: dict[float, list[dict[int, float]]]):
+def getDuplicates(matches: dict[int, list[dict[int, int]]]):
     invoiceIds = []
     for invoices in matches.values():
         for invoice in invoices:

@@ -5,17 +5,20 @@ from pprint import pprint
 from loader import loadInvoices, loadStatements
 from finder import findMatchesForAllStatements
 
-def printer(matches: dict[float, list[dict[int, float]]], duplicates: set[int]):
+COMMA = 100
+
+def printer(matches: dict[int, list[dict[int, int]]], duplicates: set[int]):
     for statement, invoices in matches.items():
-        print(f"statement: {statement}")
+        print(f"statement: {statement / COMMA}")
         for invoice in invoices:
-            print(f"invoice: {invoice}")
+            floatInvoice = {k: v / COMMA for k, v in invoice.items()}
+            print(f"invoice: {floatInvoice}")
         print()
     
     if len(duplicates) > 0:
         print("Duplicates:")
         for duplicate in duplicates:
-            print(duplicate)
+            print(duplicate / COMMA)
 
 
 if __name__ == "__main__":
@@ -27,6 +30,6 @@ if __name__ == "__main__":
     argparser.add_argument("invoices", help="Path to the invoices file (*.csv)")
     args = argparser.parse_args()
 
-    statements: list[float] = loadStatements(args.statements)
-    invoices: dict[int, float] = loadInvoices(args.invoices)
+    statements: list[int] = loadStatements(args.statements)
+    invoices: dict[int, int] = loadInvoices(args.invoices)
     printer(*findMatchesForAllStatements(statements, invoices))
